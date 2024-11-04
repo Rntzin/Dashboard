@@ -9,8 +9,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useQuery } from "@tanstack/react-query";
+import { getProfile } from "@/api/get-profile";
+import { getManagedRestaurant } from "@/api/get-manager-restaurant";
 
 export function AccountMenu() {
+  const { data: profile } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
+  });
+
+  const { data: managedRestaurant } = useQuery({
+    queryKey: ["managed-restaurant"],
+    queryFn: getManagedRestaurant,
+  });
+
   return (
     <div>
       <DropdownMenu>
@@ -19,15 +32,15 @@ export function AccountMenu() {
             variant="outline"
             className="flex items-center gap-2 select-none"
           >
-            Mercado Livre
+            {managedRestaurant?.name}
             <ChevronDown className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56">
           <DropdownMenuLabel className="flex flex-col">
-            <span>André Emanuel</span>
+            <span>{profile?.name}</span>
             <span className="text-xs font-normal text-muted-foreground">
-              andre@admin.com
+              {profile?.email}
             </span>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />

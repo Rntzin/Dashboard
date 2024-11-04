@@ -14,7 +14,7 @@ import { registerRestaurant } from "@/api/register-restaurant";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const signUpForm = z.object({
   email: z.string().email(),
-  ecommerceName: z.string(),
+  restaurantName: z.string(),
   managerName: z.string(),
   phone: z.string(),
 });
@@ -39,7 +39,7 @@ export function SignUp() {
       console.log(data);
 
       await registerRestaurantFn({
-        ecommerceName: data.ecommerceName,
+        restaurantName: data.restaurantName,
         managerName: data.managerName,
         email: data.email,
         phone: data.phone,
@@ -75,11 +75,11 @@ export function SignUp() {
 
           <form onSubmit={handleSubmit(handleSignUp)} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="ecommerceName">Nome da empresa</Label>
+              <Label htmlFor="restaurantName">Nome da empresa</Label>
               <Input
-                id="ecommerceName"
+                id="restaurantName"
                 type="text"
-                {...register("ecommerceName")}
+                {...register("restaurantName")}
               />
             </div>
             <div className="space-y-2">
